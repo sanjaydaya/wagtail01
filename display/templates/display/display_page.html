@@ -1,0 +1,92 @@
+{% extends 'base.html' %} {% block content %} {% load wagtailcore_tags %}
+
+<div class="container-fluid">
+  <!-- Header Section -->
+  <header class="d-flex justify-content-between align-items-center py-3">
+    <div class="logo">
+      {% if page.logo %}
+      <img src="{{ page.logo.url }}" alt="Logo" class="img-fluid" />
+      {% endif %}
+    </div>
+    <nav class="nav">
+      <a href="#" class="btn btn-primary mx-2">Home</a>
+      <a href="#" class="btn btn-primary mx-2">About</a>
+      <a href="#" class="btn btn-primary mx-2">Account</a>
+    </nav>
+  </header>
+
+  <!-- Marquee Section -->
+  {% if page.marquee_text %}
+  <div class="marquee py-2">
+    <marquee>{{ page.marquee_text }}</marquee>
+  </div>
+  {% endif %}
+
+  <!-- Banner Section -->
+  <section
+    class="banner text-center py-5"
+    style="background-image: url('{{ page.banner_image.url }}');"
+  >
+    <div class="overlay"></div>
+    <!-- Optional overlay for text visibility -->
+    <div class="container">
+      <h1>{{ page.banner_title }}</h1>
+      <p>{{ page.banner_text }}</p>
+      <a href="#" class="btn btn-lg btn-secondary"
+        >{{ page.banner_button_text }}</a
+      >
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features py-5">
+    <div class="container text-center">
+      <h2>{{ page.welcome_message }}</h2>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="feature-box">{{ page.feature_1 }}</div>
+        </div>
+        <div class="col-md-4">
+          <div class="feature-box">{{ page.feature_2 }}</div>
+        </div>
+        <div class="col-md-4">
+          <div class="feature-box">{{ page.feature_3 }}</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Body Content Section -->
+  <section class="body-content py-5">
+    <div class="container">
+      {% for block in page.body %} {% if block.block_type == 'heading' %}
+      <h3>{{ block.value }}</h3>
+      {% elif block.block_type == 'paragraph' %}
+      <p>{{ block.value|richtext }}</p>
+      {% elif block.block_type == 'image' %}
+      <img src="{{ block.value.url }}" class="img-fluid" alt="Image" />
+      {% endif %} {% endfor %}
+    </div>
+  </section>
+
+  <!-- Sponsors Section -->
+  <section class="sponsors py-5 bg-light">
+    <div class="container">
+      <h2>Sponsors</h2>
+      <div class="row">
+        {% for sponsor in page.sponsors.all %}
+        <div class="col-md-4">
+          <img src="{{ sponsor.url }}" alt="Sponsor Logo" class="img-fluid" />
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer Section -->
+  <footer class="text-center py-3">
+    <p>{{ page.footer_text }}</p>
+  </footer>
+</div>
+
+{% endblock %}

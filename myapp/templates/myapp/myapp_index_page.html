@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% load wagtailcore_tags %}
+{% load static %}
+
+{% block body_class %}template-blogindexpage{% endblock %}
+
+{% block content %}
+
+<!-- Bootstrap CSS -->
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<!-- Left Toolbar -->
+<div class="d-flex">
+    <aside class="left-toolbar bg-dark text-white p-3" style="width: 200px; height: 100vh; position: fixed;">
+        <ul class="nav flex-column">
+            <li class="nav-item"><a href="http://127.0.0.1:8000" class="nav-link text-white">Home</a></li>
+            <li class="nav-item"><a href="http://127.0.0.1:8000/blog" class="nav-link text-white">Cyber Security</a></li>
+            <li class="nav-item"><a href="http://127.0.0.1:8000/blog/cyber-tools/" class="nav-link text-white">Cyber tools</a></li>
+            <li class="nav-item"><a href="http://127.0.0.1:8000/myapp" class="nav-link text-white">myapp</a></li>
+        </ul>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="main-content container-fluid" style="margin-left: 220px;">
+        <!-- Page Title Section -->
+        <div class="text-center bg-primary text-white py-3">
+            <h1>{{ page.title }}</h1>
+        </div>
+
+        <!-- Page Intro Content -->
+        <div class="p-3">
+            <h2><div class="intro">{{ page.intro|richtext }}</div></h2>
+        </div>
+
+        <!-- Blog Posts Section -->
+        <section class="blog-posts mt-4">
+            {% for post in page.get_children %}
+                <div class="post-item mb-4 p-3 border rounded">
+                    <h2><a href="{% pageurl post %}" class="text-dark">{{ post.title }}</a></h2>
+                  
+                    <a href="{% pageurl post %}" class="btn btn-primary">Read More</a>
+                </div>
+            {% endfor %}
+        </section>
+    </div>
+</div>
+
+<!-- Bootstrap JS, Popper.js, and jQuery -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+    <div class="container">
+        <h2>Thank You!</h2>
+        <p>We have received your message.</p>
+        <ul>
+            <li><strong>Name:</strong> {{ name }}</li>
+            <li><strong>Email:</strong> {{ email }}</li>
+            <li><strong>Message:</strong> {{ message }}</li>
+        </ul>
+    </div>
+{% endblock %}

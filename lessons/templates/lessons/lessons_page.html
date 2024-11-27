@@ -1,0 +1,40 @@
+{% extends "base.html" %} {% load wagtailcore_tags %} {% block content %}
+<div class="container" id="main">
+  <div class="row">
+    <div class="col-12 d-none d-lg-block">
+      <!-- Add your banner or ad code here -->
+    </div>
+  </div>
+
+  <div class="row mt-4">
+    <div class="col-12 col-lg-8">
+      <div id="inner-text">
+        {% for block in page.body %} {% if block.block_type == 'heading' %}
+        <h2>{{ block.value }}</h2>
+        {% elif block.block_type == 'paragraph' %}
+        <p>{{ block.value }}</p>
+        {% elif block.block_type == 'image' %}
+        <img
+          src="{{ block.value.url }}"
+          alt="{{ block.value.title }}"
+          class="img-fluid"
+        />
+        {% endif %} {% endfor %}
+      </div>
+    </div>
+
+    <div class="col-12 col-lg-4 d-none d-lg-block mt-4">
+      <div id="google-ad-right">
+        <!-- Add your sidebar content or ad code here -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Display the date -->
+<p class="meta">
+  {% if page.date %} Published on: {{ page.date|date:"F j, Y" }} {% else %} No
+  publication date available {% endif %}
+</p>
+
+{% endblock %}
